@@ -2,39 +2,45 @@ import tkinter as tk
 
 
 class Calculator(tk.Frame):
-    def __init__(self, master=None, numbers={}):
+    def __init__(self, master=None):
         super().__init__(master)
         self.master = master
-        self.numbers = numbers
-        self.buttons = self.create_buttons()
-        self.formula = 'formlua'
+        self.formula = ''
         self.pack()
         self.create_widgets()
 
     def create_buttons(self):
-        buttons = []
-        for name, value in self.numbers.items():
-            print(value)
-            buttons.append(tk.Button(self.master, text=name, command=lambda *args: self.add_to_formula(value)))
-        return buttons
+        tk.Button(self.master, text="1", command=lambda: self.add_to_formula(1)).pack(side="left")
+        tk.Button(self.master, text="2", command=lambda: self.add_to_formula(2)).pack(side="left")
+        tk.Button(self.master, text="3", command=lambda: self.add_to_formula(3)).pack(side="left")
+        tk.Button(self.master, text="4", command=lambda: self.add_to_formula(4)).pack(side="left")
+        tk.Button(self.master, text="5", command=lambda: self.add_to_formula(5)).pack(side="left")
+        tk.Button(self.master, text="6", command=lambda: self.add_to_formula(6)).pack(side="left")
+        tk.Button(self.master, text="7", command=lambda: self.add_to_formula(7)).pack(side="left")
+        tk.Button(self.master, text="8", command=lambda: self.add_to_formula(8)).pack(side="left")
+        tk.Button(self.master, text="9", command=lambda: self.add_to_formula(9)).pack(side="left")
+        tk.Button(self.master, text="+", command=lambda: self.add_to_formula("+")).pack(side="left")
+        tk.Button(self.master, text="-", command=lambda: self.add_to_formula("-")).pack(side="left")
+        tk.Button(self.master, text="/", command=lambda: self.add_to_formula("/")).pack(side="left")
+        tk.Button(self.master, text="*", command=lambda: self.add_to_formula("*")).pack(side="left")
 
     def create_widgets(self):
-        for button in self.buttons:
-            button.pack(side="top")
-        self.form = tk.Button(self.master, text="print formula", command=self.print_formula)
-        self.form.pack(side="top")
+        self.create_buttons()
+        tk.Button(self.master, text="print formula", command=self.print_formula).pack(side="bottom")
+        tk.Button(self.master, text="print result", command=self.print_result).pack(side="bottom")
         self.quit = tk.Button(self, text="QUIT", fg="red", command=self.master.destroy)
         self.quit.pack(side="bottom")
 
     def print_formula(self):
         print(self.formula)
 
+    def print_result(self):
+        print(eval(self.formula))
+
     def add_to_formula(self, value):
-        print(value)
-        self.formula = self.formula + str(value)
+        self.formula += str(value)
 
 
-Numbers = {"1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "0": 0}
 root = tk.Tk()
-app = Calculator(master=root, numbers=Numbers)
+app = Calculator(master=root)
 app.mainloop()
